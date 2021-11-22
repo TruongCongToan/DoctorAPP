@@ -1,9 +1,10 @@
 import React from 'react';
 import SignUp from './component/signup';
 import LogIn from './component/login';
-import DashBoard from './component/dashboard';
+import Dashboard from './component/dashboard';
 import Home from './component/home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ForgotPassword from "./component/ForgotPassword";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <Routes>
         <Route path='/login' element={<LogIn/>}/>
         <Route path="/signup" element={<SignUp/>}/>
-        <Route path='/dashboard' element={<DashBoard/>}/>
+        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/forgot' element={<ForgotPassword/>}/>
         <Route path='/' element={<Home/>}/>
       </Routes>
       </BrowserRouter>
