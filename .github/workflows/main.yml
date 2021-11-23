@@ -34,3 +34,5 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: Deploy to Heroku
+        uses: AkhileshNS/heroku-deploy@v3.12.12
