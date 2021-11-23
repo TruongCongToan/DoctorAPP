@@ -8,11 +8,13 @@ import ForgotPassword from "./component/ForgotPassword";
 import NavBar from './component/navbar/NavBar';
 import './App.css';
 import { Nav, Navbar } from 'react-bootstrap';
+import SuggestProduct from './component/suggestion'
+
 
 function App() {
   return (
     <div className="App">
- <div>
+      <div>
        <Navbar bg ="myRed" variant="dark" sticky="top" expand="lg">
         <Navbar.Brand>
             {/* <img src = {logo192}/> */}
@@ -40,6 +42,7 @@ function App() {
         <Route path='/forgot' element={<ForgotPassword/>}/>
         <Route path='/home' element={<Home/>}/>
         <Route path='/navbar' element={<NavBar/>}/>
+        <Route path="/suggest" element={<SuggestProduct />} />
         <Route path='/' element={<LogIn/>}/>
       </Routes>
       </BrowserRouter> }
@@ -48,10 +51,8 @@ function App() {
         thi is content
        </div> */}
     </div>
-      
-     
-    </div>
-  );
+   </div>
+  )
 }
 
-export default App;
+export default App
