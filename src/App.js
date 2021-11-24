@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import ForgotPassword from "./component/ForgotPassword";
 import NavBar from './component/navbar/NavBar';
 import './App.css';
-import { Nav, Navbar } from 'react-bootstrap';
+import {Button, Nav, Navbar} from 'react-bootstrap';
 import SuggestProduct from './component/suggestion'
 import {auth} from "./firebase";
 
@@ -25,6 +25,9 @@ function App() {
             }
         })
     })
+    const LogOut = async()=>{
+        await auth.signOut();
+    }
   return (
     <div className="App">
       <div>
@@ -44,6 +47,9 @@ function App() {
                       <Nav.Link href ="/contact">  商品報告</Nav.Link>
                       <Nav.Link href ="/contact">  おすすめ商品</Nav.Link>
                   </Nav>
+              </Navbar.Collapse>
+              <Navbar.Collapse className="justify-content-end">
+                  <Button onClick={LogOut}>Logout</Button>
               </Navbar.Collapse>
           </Navbar>
               </div>}
