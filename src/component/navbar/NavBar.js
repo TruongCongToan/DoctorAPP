@@ -4,22 +4,24 @@ import { Nav, Navbar } from 'react-bootstrap';
 const NavBar = () => {
     return (
     <div>
-       <Navbar bg ="dark" variant="dark" sticky="top">
-        <Navbar.Brand>
-            {/* <img src = {logo192}/> */}
-            Random
-        </Navbar.Brand>
-        <Nav>
-        <Nav.Link href ="navbar">  Home</Nav.Link>
-        <Nav.Link href ="home">  Product</Nav.Link>
-           
-        <Nav.Link href ="about">  About Us</Nav.Link>
-        <Nav.Link href ="contact">  Contact Us</Nav.Link>
-        </Nav>
-       </Navbar>
-       <div className="content">
-        thi is content
-       </div>
+        <Navbar bg ="myRed" variant="dark" sticky="top" expand="lg">
+            <Navbar.Brand>
+                {/* <img src = {logo192}/> */}
+                ランダム
+            </Navbar.Brand>
+
+            <Navbar.Toggle/>
+            <Navbar.Collapse>
+                <Nav>
+                    <Nav.Link href ="home">  ホーム</Nav.Link>
+                    <Nav.Link href ="products">  Product</Nav.Link>
+
+                    <Nav.Link href ="about"> 顧客報告</Nav.Link>
+                    <Nav.Link href ="contact">  商品報告</Nav.Link>
+                    <Nav.Link href ="contact">  おすすめ商品</Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
     </div>
     );
 };

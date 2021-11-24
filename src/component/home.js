@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React,{useState,useEffect} from 'react';
-import { Table } from 'react-bootstrap';
+import {Navbar, Table} from 'react-bootstrap';
+import {auth} from "../firebase";
+import {useNavigate} from "react-router-dom";
 
 
 export default function Home(){
@@ -8,9 +10,21 @@ export default function Home(){
     const[searchTerm,setSearchTerm] = useState('');
     const[currentPage,setcurrentPage] = useState(1);
     const[postPerPage] = useState(2);
+    const navigate = useNavigate();
+    useEffect(()=>{
+        //Check user is logined
+        auth.onAuthStateChanged((user)=>{
+            if(user!=null){
+
+            }
+            else{
+                navigate('/login');
+            }
+        })
+    },[])
     useEffect(() => {
         const url = "https://api-truongcongtoan.herokuapp.com/api/students";
-    
+
         const fetchData = async () => {
           try {
             const response = await fetch(url);
@@ -20,7 +34,7 @@ export default function Home(){
             console.log("error", error);
           }
         };
-    
+
         fetchData();
     }, []);
 
@@ -41,9 +55,9 @@ export default function Home(){
         //     <Link className="btn btn-primary m-1" to='/signup'>Sign Up</Link>
         // </div>
         <div className="home">
-          
+          <Navbar/>
       <input type="text" placeholder="検索 ...."  onChange ={event => {setSearchTerm(event.target.value)}}/>
-    
+
           <Table striped bordered hover>
           <thead>
               <tr>
