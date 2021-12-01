@@ -3,12 +3,13 @@ import SignUp from './component/signup';
 import LogIn from './component/login';
 import Dashboard from './component/dashboard';
 import Home from './component/home';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ForgotPassword from "./component/ForgotPassword";
 import NavBar from './component/navbar/NavBar';
 import './App.css';
 import {Button, Nav, Navbar} from 'react-bootstrap';
 import SuggestProduct from './component/suggestion'
+import Products from './component/products';
 import {auth} from "./firebase";
 
 
@@ -31,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <div>
-          {check == true &&
+          {check === true &&
               <div>
           <Navbar bg ="myRed" variant="dark" sticky="top" expand="lg">
               <Navbar.Brand>
@@ -45,7 +46,7 @@ function App() {
                       <Nav.Link href ="/products">  Product</Nav.Link>
                       <Nav.Link href ="/about"> 顧客報告</Nav.Link>
                       <Nav.Link href ="/contact">  商品報告</Nav.Link>
-                      <Nav.Link href ="/contact">  おすすめ商品</Nav.Link>
+                      <Nav.Link href ="/suggestion">  おすすめ商品</Nav.Link>
                   </Nav>
               </Navbar.Collapse>
               <Navbar.Collapse className="justify-content-end">
@@ -59,9 +60,10 @@ function App() {
                       <Route path='/login' element={<LogIn/>}/>
                       <Route path="/signup" element={<SignUp/>}/>
                       <Route path='/dashboard' element={<Dashboard/>}/>
+                      <Route path='products' element={<Products/>}/>
                       <Route path='/forgot' element={<ForgotPassword/>}/>
                       <Route path='/home' element={<Home/>}/>
-                      <Route path="/suggest" element={<SuggestProduct/>}/>
+                      <Route path="/suggestion" element={<SuggestProduct/>}/>
                       <Route path='/' element={<LogIn/>}/>
                   </Routes>
               </BrowserRouter>

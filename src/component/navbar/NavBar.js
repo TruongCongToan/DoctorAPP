@@ -18,7 +18,7 @@ const NavBar = () => {
 
                     <Nav.Link href ="about"> 顧客報告</Nav.Link>
                     <Nav.Link href ="contact">  商品報告</Nav.Link>
-                    <Nav.Link href ="contact">  おすすめ商品</Nav.Link>
+                    <Nav.Link href ="suggestion">  おすすめ商品</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
