@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Users;
+import com.example.demo.exception.DuplicateRecordException;
+import com.example.demo.exception.InternalServerException;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.impl.UserService;
 
@@ -28,51 +31,83 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
-//	// get all user
-//		@GetMapping("/api/users")
-//		@CrossOrigin(origins = "http://localhost:3000")
-//		public ResponseEntity<Object> getAllUsers() {
-//			HttpStatus httpStatus = null;
-//			List<UserModel> userModels = new ArrayList<UserModel>();
-//			try {
-//				userModels = service.getListUser();
-//				httpStatus = HttpStatus.OK;
-//			} catch (Exception e) {
-//				httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-//				System.out.println(e);
-//			}
-//			return new ResponseEntity<Object>(userModels, httpStatus);
-//		}
-//		
-//	//tim user theo username
-//		@GetMapping("/api/users/{username}")
-//		@CrossOrigin(origins = "http://localhost:3000")
-//		public ResponseEntity<Object> getListUsersByName(@PathVariable("username") String username) {
-//			HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-//			Users user = new Users();
-//			try {
-//				user = service.getUserByName(username);
-//				httpStatus = HttpStatus.OK;
-//			} catch (Exception e) {
-//				e.getStackTrace();
-//			}
-//			return new ResponseEntity<Object>(user, httpStatus);
-//		}
-//	
+
+	// get all user
+		@GetMapping("/api/users")
+		@CrossOrigin(origins = "http://localhost:3000")
+		public ResponseEntity<Object> getAllUsers() {
+			HttpStatus httpStatus = null;
+			List<UserModel> userModels = new ArrayList<UserModel>();
+			try {
+				userModels = service.getListUser();
+				httpStatus = HttpStatus.OK;
+			} catch (Exception e) {
+				 throw new InternalServerException("Không được bỏ trống các trường !");
+			}
+			return new ResponseEntity<Object>(userModels, httpStatus);
+		}
+		
+		//kiem tra da dang nhap hay chua
+		@PostMapping("api/users/isLogin")
+		@CrossOrigin(origins = "http://localhost:3000")
+		public int checkLogin(@Valid @RequestBody UserModel userModel1) throws SQLException{
+		
+			try {
+				return  service.checkLogin(userModel1);
+			} catch (Exception e) {
+				
+				 throw new InternalServerException("Không được bỏ trống các trường !");
+
+			}				
+		}
+		
+	//tim user theo username
+		@GetMapping("/api/users/{username}")
+		@CrossOrigin(origins = "http://localhost:3000")
+		public ResponseEntity<Object> getListUsersByName(@PathVariable("username") String username) {
+			HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+			Users user = new Users();
+			try {
+				user = service.getUserByName(username);
+				httpStatus = HttpStatus.OK;
+			} catch (Exception e) {
+				 throw new NotFoundException("Không tìm thấy thông tin trong danh sách !");
+			}
+			return new ResponseEntity<Object>(user, httpStatus);
+		}
+	
 	// them user
 		@PostMapping("/api/users")
 		@CrossOrigin(origins = "http://localhost:3000")
 		public ResponseEntity<Object> addUsers(@Valid @RequestBody UserModel userModel1) {
 			HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-			try {
-				service.addUser(userModel1);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			UserModel userModel = new UserModel();
 			
-		
-			return new ResponseEntity<Object>(userModel1,httpStatus);
+			try {
+				Users user = service.addUser(userModel1);
+				if (null != user) {
+					httpStatus = HttpStatus.CREATED;
+					
+					userModel.setUser_id(user.getUser_id());
+					userModel.setUsername(user.getUsername());
+					userModel.setEmail(user.getEmail());
+					userModel.setPassword(user.getPassword());
+					userModel.setAddress(user.getAddress());
+					userModel.setPhonenumber(user.getPhonenumber());
+					userModel.setGender(user.getGender());
+					userModel.setRole(user.getRole());
+					
+				
+					userModel.setImage(user.getImage());
+					userModel.setPosition(user.getPosition());
+					userModel.setCreateat(user.getCreateat());
+					userModel.setUpdateat(user.getUpdateat());
+					
+				}
+			} catch (Exception e) {
+				 throw new DuplicateRecordException("Da co DotorID nay trong danh sach");		 
+			}
+			return new ResponseEntity<Object>(userModel, httpStatus);
 		}
 		
 	//sua thong tin nguoi dung
@@ -88,6 +123,8 @@ public class UserController {
 
 			} catch (Exception e) {
 				httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+				 throw new InternalServerException("Không được bỏ trống các trường !");
+
 			}
 			return new ResponseEntity<Object>(httpStatus);
 		}
@@ -101,10 +138,26 @@ public class UserController {
 				service.deleteUser(username);
 				httpStatus = HttpStatus.ACCEPTED;
 			} catch (Exception e) {
-				e.getStackTrace();
+				
+				  httpStatus = HttpStatus.NOT_FOUND;
+				  throw new NotFoundException("Không tìm thấy thông tin trong danh sách !");
 			}
 			return new ResponseEntity<Object>(httpStatus);
 		}
+		//paginated users
 		
+		@CrossOrigin(origins = "http://localhost:3000")
+		@GetMapping("api/users/{pageNo}/{pageSize}")
+		public List<Users> getPaginatedUser(@PathVariable int pageNo,@PathVariable int pageSize){
+			return service.findPaginated(pageNo, pageSize);
+			
+		}
+		//get all doctors
+		@CrossOrigin(origins = "http://localhost:3000")
+		@GetMapping("api/users/doctors")
+		public List<Users> getAllDoctors() throws SQLException {
+	
+		return service.getListDoctors();
+		}
 		
 }

@@ -28,5 +28,12 @@ public interface IUserDAO extends JpaRepository<Users, Integer> {
 	@Query(value = "delete from users where username =:inname", nativeQuery = true)
 	public void deleteUser(@Param("inname") String inname);
 	
+	//get all doctors
+	@Query(nativeQuery = true, value = "SELECT * FROM users WHERE role='R2' ORDER BY username")
+	public List<Users> getAllDoctors();
+	
+	//get all doctors by username
+	@Query(nativeQuery = true, value = "SELECT * FROM users WHERE role='R2' and username = :inname ORDER BY username")
+	public Users getDoctorByName(@Param("inname") String inname);
 
 }

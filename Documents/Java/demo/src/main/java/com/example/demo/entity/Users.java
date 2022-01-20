@@ -5,10 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -25,7 +27,7 @@ public class Users implements Serializable {
 	private static final long serialVersionUID = 1L;
 		@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private int id;
+	 private int user_id;
 	  @Column(name = "username")
 	private String username;
 	  @Column(name = "email")
@@ -40,12 +42,16 @@ public class Users implements Serializable {
 	private String gender;
 	  @Column(name = "role")
 	 private String role;
+	  @Column(name = "hovaten")
+	private String hovaten;
 	  @Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
-	private String image;
-
+	  @Column(name = "image",length = Integer.MAX_VALUE,nullable = true)
+	private String image ;
+	  
 	  @Column(name = "position")
 	private String position;
+		@Column(name="active")
+		private int active;
 	  
 	  @JsonFormat(pattern = "yyyy-MM-dd",shape = Shape.STRING)
 	  @Column(name = "createat")
@@ -54,6 +60,9 @@ public class Users implements Serializable {
 	  @JsonFormat(pattern = "yyyy-MM-dd",shape = Shape.STRING)
 	  @Column(name = "updateat")
 	private Date updateat;
+	  
+//	  @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+//	  private MarkDown markDown;
 	  
 
 }
