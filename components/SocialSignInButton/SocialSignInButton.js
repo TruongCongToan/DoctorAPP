@@ -1,14 +1,18 @@
 import React from 'react'
 import CustomButton from '../CustomButton'
+import { useNavigation } from '@react-navigation/native';
 
 const SocialSignInButton = () => {
+
+    const navigation = useNavigation();
+
      //onSignInWithGoogle
      const onSignInWithGoogle = () => {
-        console.warn("onSignInWithGoogle");
+        navigation.navigate("HomeTab")
     };
     //onSignInWithFacebook
     const onSignInWithFacebook = () => {
-        console.warn("onSignInWithFacebook");
+        navigation.navigate("HomeTab")
     };
 
     return (

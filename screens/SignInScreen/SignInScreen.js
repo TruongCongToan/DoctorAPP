@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   StyleSheet,
   useWindowDimensions,
   ScrollView,
-  Alert
+  Alert,
 } from "react-native";
 
 import Logo from "../../assets/image/healthcare.png";
@@ -14,98 +14,95 @@ import CustomButton from "../../components/CustomButton";
 import CustomInput from "../../components/CustomInput";
 import SocialSignInButton from "../../components/SocialSignInButton";
 import { useNavigation } from "@react-navigation/native";
-import Toast from 'react-native-toast-message';
+import Toast from "react-native-toast-message";
 
-import axios from 'axios';
-
+import axios from "axios";
 
 const SignInScreen = () => {
   const { height } = useWindowDimensions();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
-  var url = "http://localhost:9000/api/user/login"
+  var url = "http://localhost:9000/api/user/login";
 
   const [state, setstate] = useState({
-    email: '',
-    password: ''
-  })
+    email: "",
+    password: "",
+  });
   const [loginData, setloginData] = useState({
-    email: '',
-    password: ''
-  })
-  const [error, seterror] = useState({})
+    email: "",
+    password: "",
+  });
+  const [error, seterror] = useState({});
 
   const navigation = useNavigation();
 
   //sign in press
   const onSignInPressed = () => {
-   
-   if (validateBlank()) {
-    // console.warn(validateEmail(email));
+    if (validateBlank()) {
+      // console.warn(validateEmail(email));
       if (validateEmail(email)) {
-        let errorsCheck = {}
+        let errorsCheck = {};
         errorsCheck["email"] = "";
-        seterror(errorsCheck)
+        seterror(errorsCheck);
         try {
-          handleLogin(url, loginData)
+          handleLogin(url, loginData);
         } catch (error) {
           Toast.show({
-            type: 'error',
-            text1: 'Thông báo',
-            text2: 'Thông tin email và mật khẩu không chính xác !'
+            type: "error",
+            text1: "Thông báo",
+            text2: "Thông tin email và mật khẩu không chính xác !",
           });
         }
-       
       }
-   }
+    }
   };
-    //add new data
+  //add new data
 
   useEffect(() => {
     setloginData({
       email: email,
-      password: password
-    })
-  }, [email,password])
-  
+      password: password,
+    });
+  }, [email, password]);
 
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ postName: 'React updates ' })
-};
 
-const [data, setdata] = useState('')
-    const handleLogin = async (url, data = {}) => { 
 
-      axios
-      .get("http://localhost:9000/api/user/trang@gmail.com")
-      .then((response) => {
-          console.warn(response);
-      });
-    
-    }
-  
+  const [data, setdata] = useState("");
+  const handleLogin = async (url, data = {}) => {
+    // axios
+    // .get("http://10.0.2.2:9000/api/user/trang@gmail.com")
+    // .then((response) => {
+    //     console.warn(response);
+    // });
+
+    fetch("https://mywebsite.com/endpoint/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstParam: "yourValue",
+        secondParam: "yourOtherValue",
+      }),
+    });
+  };
+
   //forgot password press
   const onForgotPassPressed = () => {
-    navigation.navigate('ForgotPassWord');
+    navigation.navigate("ForgotPassWord");
   };
 
   //onSignUpPress
   const onSignUpPress = () => {
-    navigation.navigate('SignUp')
+    navigation.navigate("SignUp");
   };
-
-
-
-
 
   //validate email
   const validateEmail = (email) => {
-
     let errors = {};
-    var check = true
+    var check = true;
     var result = String(email)
       .toLowerCase()
       .match(
@@ -114,10 +111,10 @@ const [data, setdata] = useState('')
     if (result === null) {
       errors["email"] = " Email không đúng định dạng! VD: xxx@yyy.com";
       check = false;
-      seterror(errors)
+      seterror(errors);
     } else {
-      errors["email"] = ""
-      seterror(errors)
+      errors["email"] = "";
+      seterror(errors);
     }
     return check;
   };
@@ -128,15 +125,13 @@ const [data, setdata] = useState('')
     if (!email) {
       formIsValid = false;
       errors["email"] = "Không được bỏ trống email !";
-
-    }
-    else if (!password) {
+    } else if (!password) {
       formIsValid = false;
       errors["password"] = "Không được bỏ trống mật khẩu !";
     }
-    seterror(errors)
+    seterror(errors);
     return formIsValid;
-  }
+  };
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
@@ -146,11 +141,7 @@ const [data, setdata] = useState('')
           resizeMode="contain"
         />
 
-        <CustomInput
-          placeholder="Email"
-          value={email}
-          setValue={setemail}
-        />
+        <CustomInput placeholder="Email" value={email} setValue={setemail} />
 
         <Text style={styles.error}> {error["email"]}</Text>
 
@@ -192,15 +183,15 @@ const styles = StyleSheet.create({
     maxWidth: 300,
     maxHeight: 200,
     borderRadius: 10,
-    borderWidth: 0
+    borderWidth: 0,
   },
   error: {
     fontSize: 12,
-    color: 'red',
-    marginLeft:15,
-    marginBottom:10,
-    width:"100%"
-  }
+    color: "red",
+    marginLeft: 15,
+    marginBottom: 10,
+    width: "100%",
+  },
 });
 
 export default SignInScreen;
