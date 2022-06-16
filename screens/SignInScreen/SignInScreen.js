@@ -70,23 +70,28 @@ const SignInScreen = () => {
 
   const [data, setdata] = useState("");
   const handleLogin = async (url, data = {}) => {
-    // axios
-    // .get("http://10.0.2.2:9000/api/user/trang@gmail.com")
-    // .then((response) => {
-    //     console.warn(response);
-    // });
-
-    fetch("https://mywebsite.com/endpoint/", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstParam: "yourValue",
-        secondParam: "yourOtherValue",
-      }),
-    });
+    console.log("asad");
+    
+    // return axios
+    // .get("https://api-truongcongtoan-login.herokuapp.com/api/user/sadwadwadw")
+    // .then(
+    //   (response) => {
+    //     console.log(response);
+    //     return response
+    // }).catch(
+    //   (error) =>{
+    //     console.log(1111,JSON.stringify(error));
+    //   }
+    // );
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch("https://api-truongcongtoan-login.herokuapp.com/api/user/trang@gmail.com", requestOptions)
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   };
 
   //forgot password press

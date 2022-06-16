@@ -6,7 +6,11 @@ import NotifyScreen from "../../screens/NotifyScreen";
 import ScheduleScreen from "../../screens/SchedulesScreen/SchedulesScreen";
 import CommunityScreen from "../../screens/CommunityScreen";
 
-import HomeLogo from "../../assets/image/house.png";
+import { FontAwesome5 } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons'; 
+
 import Toast from "react-native-toast-message";
 
 const Tabs = () => {
@@ -25,7 +29,7 @@ const Tabs = () => {
             elevation: 0,
             backgroundColor: "#ffffff",
             borderRadius: 15,
-            height: 90,
+            height: 80,
             shadowColor: "black",
           },
         }}
@@ -37,16 +41,8 @@ const Tabs = () => {
             tabBarIcon: ({ focused }) => (
               <>              
               <View style = {{alignItems:'center',justifyContent:'center',top:10}}>
-                <Image
-                  source={require("../../assets/image/homeB.png")}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    tintColor: focused ? "black" : "gray",
-                  }}
-                  resizeMode="stretch"
-                />
-                <Text style = {{color: focused ? 'black':'gray',fontSize:12}}>Trang chủ</Text>
+              <FontAwesome5 name="home" size={30} color={focused?"#0092c5":"gray"} />
+                <Text style = {{color: focused ? '#0092c5':'gray',fontSize:12}}>Trang chủ</Text>
               </View>
               </>
             ),
@@ -59,16 +55,8 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => (
             <>              
             <View style = {{alignItems:'center',justifyContent:'center',top:10}}>
-              <Image
-                source={require("../../assets/image/notification.png")}
-                style={{
-                  width: 30,
-                  height: 30,
-                  tintColor: focused ? "black" : "gray",
-                }}
-                resizeMode="stretch"
-              />
-              <Text style = {{color: focused ? 'black':'gray',fontSize:12}}>Thông báo</Text>
+            <MaterialIcons name="notifications-active" size={30} color={focused?"#0092c5":"gray"} />
+              <Text style = {{color: focused ? '#0092c5':'gray',fontSize:12}}>Thông báo</Text>
             </View>
             </>
           ),
@@ -81,16 +69,8 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => (
             <>              
             <View style = {{alignItems:'center',justifyContent:'center',top:10}}>
-              <Image
-                source={require("../../assets/image/calendar.png")}
-                style={{
-                  width: 30,
-                  height: 30,
-                  tintColor: focused ? "black" : "gray",
-                }}
-                resizeMode="stretch"
-              />
-              <Text style = {{color: focused ? 'black':'gray',fontSize:12}}>Lịch hẹn</Text>
+            <MaterialCommunityIcons name="calendar-month-outline" size={30} color={focused?"#0092c5":"gray"} />
+              <Text style = {{color: focused ? '#0092c5':'gray',fontSize:12}}>Lịch hẹn</Text>
             </View>
             </>
           ),
@@ -103,16 +83,8 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => (
             <>              
             <View style = {{alignItems:'center',justifyContent:'center',top:10}}>
-              <Image
-                source={require("../../assets/image/group-users.png")}
-                style={{
-                  width: 30,
-                  height: 30,
-                  tintColor: focused ? "black" : "gray",
-                }}
-                resizeMode="stretch"
-              />
-              <Text style = {{color: focused ? 'black':'gray',fontSize:12}}>Cộng đồng</Text>
+            <Ionicons name="md-people" size={30} color={focused?"#0092c5":"gray"} />
+              <Text style = {{color: focused ? '#0092c5':'gray',fontSize:12}}>Cộng đồng</Text>
             </View>
             </>
           ),

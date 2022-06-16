@@ -1,14 +1,17 @@
-import { View, Text } from 'react-native'
+import { View, Text,Image,TouchableOpacity } from 'react-native'
 import React from 'react'
-// import Slick from 'react-native-slick'
-
-const HomeScreen = () => {
-
-      
+import { SafeAreaView } from 'react-native-safe-area-context'
+import Ionicons from '@expo/vector-icons/Ionicons';
+const HomeScreen = ({ navigation }) => {
   return (
-   <>
-       <Text>Home Page</Text>
-   </>
+  <SafeAreaView style={{flex:1}}>
+    <TouchableOpacity style={{alignContent:'flex-end',margin:16}}>
+
+    <Ionicons name="menu" size={30} color="black"  onPress={() => {navigation.openDrawer()}}
+    />
+    </TouchableOpacity>
+   
+  </SafeAreaView>
   )
 }
 

@@ -12,7 +12,7 @@ const SocialSignInButton = () => {
     };
     //onSignInWithFacebook
     const onSignInWithFacebook = () => {
-        navigation.navigate("HomeTab")
+        navigation.navigate("HomeDrawer")
     };
 
     return (
