@@ -35,11 +35,9 @@ const SignInScreen = () => {
 
   const navigation = useNavigation();
 
-  const [check, setcheck] = useState('')
   //sign in press
   const onSignInPressed = () => {
     if (validateBlank()) {
-      // console.warn(validateEmail(email));
       if (validateEmail(email)) {
         let errorsCheck = {};
         errorsCheck["email"] = "";
@@ -48,16 +46,6 @@ const SignInScreen = () => {
 
         try {
           handleLogin(url, loginData)
-          // if (getRes.access_token) {
-          //   console.log("ok");
-          // }else{
-          //   console.log("not ok");
-          //   Toast.show({
-          //     type: "error",
-          //     text1: "Thông báo",
-          //     text2: "Thông tin email và mật khẩu không chính xác !",
-          //   });
-          // }
         } catch (error) {
           Toast.show({
             type: "error",
@@ -69,10 +57,6 @@ const SignInScreen = () => {
     }
   };
 
-  useEffect(() => {
-    setcheck(getRes)
-  }, [getRes])
-  // console.log("check ", check);
 
   //add new data
 
@@ -85,8 +69,6 @@ const SignInScreen = () => {
 
 
 
-  const [data, setdata] = useState("");
-  const [getRes, setgetRes] = useState('')
   const handleLogin = async (url, data = {}) => {
     console.log("asaaa");
     var myHeaders = new Headers();

@@ -21,7 +21,24 @@ const SignUpcreen = () => {
    
     //onSignUpPress
     const onSignInPress = () => {
-        navigation.navigate('SignIn');
+        if (validateBlank()) {
+            if (validateEmail(email)) {
+              let errorsCheck = {};
+              errorsCheck["email"] = "";
+              seterror(errorsCheck);
+      
+      
+              try {
+                handleLogin(url, loginData)
+              } catch (error) {
+                Toast.show({
+                  type: "error",
+                  text1: "Thông báo",
+                  text2: "Đăng nhập không thành công công,vui lòng thử lại sau!",
+                });
+              }
+            }
+          }
     };
     //register Press
     const onRegisterPress = () => {
@@ -34,7 +51,47 @@ const SignUpcreen = () => {
     const onTermOfUsePressed = () =>{
         console.warn("onTermOfUsePressed");
     }
-    
+    //validate email
+  const validateEmail = (email) => {
+    let errors = {};
+    var check = true;
+    var result = String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+    if (result === null) {
+      errors["email"] = " Email không đúng định dạng! VD: xxx@yyy.com";
+      check = false;
+      seterror(errors);
+    } else {
+      errors["email"] = "";
+      seterror(errors);
+    }
+    return check;
+  };
+  //check not input
+  const validateBlank = () => {
+    let errors = {};
+    let formIsValid = true;
+    if (!email) {
+      formIsValid = false;
+      errors["email"] = "Không được bỏ trống email !";
+    } else if (!password) {
+      formIsValid = false;
+      errors["password"] = "Không được bỏ trống mật khẩu !";
+    }
+    else if (!passwordRepeate) {
+        formIsValid = false;
+        errors["passwordRepeate"] = "Không được bỏ trống !";
+      }
+      else if (!fullname) {
+        formIsValid = false;
+        errors["fullname"] = "Không được bỏ trống họ và tên!";
+      }
+    seterror(errors);
+    return formIsValid;
+  };
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.root}>
