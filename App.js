@@ -28,7 +28,7 @@ export default function App() {
             <Stack.Screen name="ForgotPassWord" component={ForgotPassWord} />
             <Stack.Screen name="NewPassWord" component={NewPassWord} />
             <Stack.Screen name="HomeTab" component={Tabs} />
-            <Stack.Screen name="HomeDrawer" component={Drawer} />
+            {/* <Stack.Screen name="HomeDrawer" component={Drawer} /> */}
           </Stack.Navigator>
        
         </NavigationContainer>

@@ -17,7 +17,7 @@ const Drawer = () => {
 
   return (
     
-    <NavigationContainer>
+    // <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home" 
       screenOptions={{headerShown : false}}
       >
@@ -30,7 +30,7 @@ const Drawer = () => {
         <Drawer.Screen name="Logout" component={Logout} />
 
       </Drawer.Navigator>
-    </NavigationContainer>
+    // </NavigationContainer>
   )
 }
 

@@ -7,7 +7,7 @@ const HomeScreen = ({ navigation }) => {
   <SafeAreaView style={{flex:1}}>
     <TouchableOpacity style={{alignContent:'flex-end',margin:16}}>
 
-    <Ionicons name="menu" size={30} color="black"  onPress={() => {navigation.openDrawer()}}
+    <Ionicons name="menu" size={30} color="black"  onPress={() => {navigation.goBack()}}
     />
     </TouchableOpacity>
    

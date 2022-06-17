@@ -16,14 +16,12 @@ import SocialSignInButton from "../../components/SocialSignInButton";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 
-import axios from "axios";
-
 const SignInScreen = () => {
   const { height } = useWindowDimensions();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
-  var url = "http://localhost:9000/api/user/login";
+  var url = "https://api-truongcongtoan-login.herokuapp.com/api/user/login";
 
   const [state, setstate] = useState({
     email: "",
@@ -37,6 +35,7 @@ const SignInScreen = () => {
 
   const navigation = useNavigation();
 
+  const [check, setcheck] = useState('')
   //sign in press
   const onSignInPressed = () => {
     if (validateBlank()) {
@@ -45,18 +44,36 @@ const SignInScreen = () => {
         let errorsCheck = {};
         errorsCheck["email"] = "";
         seterror(errorsCheck);
+
+
         try {
-          handleLogin(url, loginData);
+          handleLogin(url, loginData)
+          // if (getRes.access_token) {
+          //   console.log("ok");
+          // }else{
+          //   console.log("not ok");
+          //   Toast.show({
+          //     type: "error",
+          //     text1: "Thông báo",
+          //     text2: "Thông tin email và mật khẩu không chính xác !",
+          //   });
+          // }
         } catch (error) {
           Toast.show({
             type: "error",
             text1: "Thông báo",
-            text2: "Thông tin email và mật khẩu không chính xác !",
+            text2: "Đăng nhập không thành công công,vui lòng thử lại sau!",
           });
         }
       }
     }
   };
+
+  useEffect(() => {
+    setcheck(getRes)
+  }, [getRes])
+  // console.log("check ", check);
+
   //add new data
 
   useEffect(() => {
@@ -69,30 +86,39 @@ const SignInScreen = () => {
 
 
   const [data, setdata] = useState("");
+  const [getRes, setgetRes] = useState('')
   const handleLogin = async (url, data = {}) => {
-    console.log("asad");
-    
-    // return axios
-    // .get("https://api-truongcongtoan-login.herokuapp.com/api/user/sadwadwadw")
-    // .then(
-    //   (response) => {
-    //     console.log(response);
-    //     return response
-    // }).catch(
-    //   (error) =>{
-    //     console.log(1111,JSON.stringify(error));
-    //   }
-    // );
-    const requestOptions = {
-      method: 'GET',
+    console.log("asaaa");
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify(
+      data
+    );
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
       redirect: 'follow'
     };
-    
-    fetch("https://api-truongcongtoan-login.herokuapp.com/api/user/trang@gmail.com", requestOptions)
-      .then(response => response.json())
-      .then(result => console.log(result))
+
+    return fetch(url, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if (JSON.parse(result).access_token) {
+          navigation.navigate("HomeTab")
+          console.log(JSON.parse(result).access_token);
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Thông báo",
+            text2: "Thông tin email và mật khẩu không chính xác !",
+          });
+        }
+      })
       .catch(error => console.log('error', error));
-  };
+  }
 
   //forgot password press
   const onForgotPassPressed = () => {
